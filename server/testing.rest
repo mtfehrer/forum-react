@@ -1,0 +1,34 @@
+POST http://localhost:5000/auth
+content-type: application/json
+
+{
+    "username": "john",
+    "password": "smith"
+}
+
+###
+
+POST http://localhost:5000/create
+content-type: application/json
+
+{
+    "username": "john",
+    "password": "smith"
+}
+
+###
+
+POST http://localhost:5000/createpost
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWljaGFlbCIsImlhdCI6MTY1OTI5MzgyMX0.XbbpaKacY39D2EwxF4xzaxKv8XobcYvuE3gAT1NblYI
+content-type: application/json
+
+{
+    "title": "TITLE",
+    "content": "CONTENT",
+    "username": "john"
+}
+
+
+###
+
+GET http://localhost:5000/posts
