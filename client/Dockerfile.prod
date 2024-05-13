@@ -1,0 +1,19 @@
+FROM node:21.0.0 as build
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+RUN npm build
+
+
+FROM node:21.0.0
+
+WORKDIR /app
+
+COPY --from=build ./build .
+
+RUN npm install -g serve
+
+CMD ["serve", "-p", "80", "build"]
