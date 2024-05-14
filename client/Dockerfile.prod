@@ -2,17 +2,20 @@ FROM node:21.0.0 as build
 
 WORKDIR /app
 
-COPY . .
+COPY ./package*.json ./
 
 RUN npm install
-RUN npm build
+
+COPY . .
+
+RUN npm run build
 
 
 FROM node:21.0.0
 
 WORKDIR /app
 
-COPY --from=build ./build .
+COPY --from=build /app/build /app/build
 
 RUN npm install -g serve
 

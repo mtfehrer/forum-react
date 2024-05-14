@@ -1,1 +1,9 @@
+version: "3.3"
 
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    ports:
+      - 8080:80
