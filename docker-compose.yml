@@ -10,3 +10,21 @@ services:
             - /app/node_modules
         ports:
             - 3000:3000
+    api:
+        build:
+            context: ./api
+            dockerfile: Dockerfile
+        volumes:
+            - ./api:/app
+            - /app/node_modules
+        ports:
+            - 5000:5000
+    db:
+        image: mongo:7.0.9
+        volumes:
+            - mongodata:/data/db
+        ports:
+            - 27017:27017
+
+volumes:
+    mongodata:

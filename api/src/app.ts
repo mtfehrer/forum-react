@@ -10,7 +10,7 @@ interface UserInterface extends mongoose.Document {
     password: string;
 }
 
-mongoose.connect("mongodb://localhost/app");
+mongoose.connect("mongodb://db/app");
 
 const app = express();
 
