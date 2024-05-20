@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         const getPosts = async () => {
-            const response = await fetch("http://localhost:5000/posts");
+            const response = await fetch(process.env.REACT_APP_API_URL + "/posts");
             const json = await response.json();
             setPosts(json);
         };
@@ -51,7 +51,7 @@ const App: React.FC = () => {
     };
 
     const createPost = async () => {
-        const response = await fetch("http://localhost:5000/createpost", {
+        await fetch(process.env.REACT_APP_API_URL + "/createpost", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -68,9 +68,7 @@ const App: React.FC = () => {
     const onSignUp = async (event: React.FormEvent): Promise<void> => {
         event.preventDefault();
 
-        const response: Response = await loginFetch(
-            "http://localhost:5000/create"
-        );
+        const response: Response = await loginFetch(process.env.REACT_APP_API_URL + "/create");
 
         if (response.status === 201) {
             setUsername(usernameInput);
@@ -83,9 +81,7 @@ const App: React.FC = () => {
     const onSignIn = async (event: React.FormEvent): Promise<void> => {
         event.preventDefault();
 
-        const response: Response = await loginFetch(
-            "http://localhost:5000/auth"
-        );
+        const response: Response = await loginFetch(process.env.REACT_APP_API_URL + "/auth");
 
         let j = await response.json();
 
@@ -124,31 +120,18 @@ const App: React.FC = () => {
                 />
                 <Route
                     path="/contact"
-                    element={
-                        <GenericPage
-                            title="Contact"
-                            content="I'm unavailable"
-                        />
-                    }
+                    element={<GenericPage title="Contact" content="I'm unavailable" />}
                 />
                 <Route
                     path="/signup"
                     element={
-                        <GenericLogin
-                            title="Sign Up"
-                            onChange={updateInput}
-                            onSubmit={onSignUp}
-                        />
+                        <GenericLogin title="Sign Up" onChange={updateInput} onSubmit={onSignUp} />
                     }
                 />
                 <Route
                     path="/signin"
                     element={
-                        <GenericLogin
-                            title="Sign In"
-                            onChange={updateInput}
-                            onSubmit={onSignIn}
-                        />
+                        <GenericLogin title="Sign In" onChange={updateInput} onSubmit={onSignIn} />
                     }
                 />
                 <Route
@@ -165,29 +148,14 @@ const App: React.FC = () => {
                 <Route path="/error">
                     <Route
                         path="/error/servererror"
-                        element={
-                            <GenericPage
-                                title="Error"
-                                content="Internal server error"
-                            />
-                        }
+                        element={<GenericPage title="Error" content="Internal server error" />}
                     />
                     <Route
                         path="/error/autherror"
-                        element={
-                            <GenericPage
-                                title="Error"
-                                content="Incorrect login info"
-                            />
-                        }
+                        element={<GenericPage title="Error" content="Incorrect login info" />}
                     />
                 </Route>
-                <Route
-                    path="*"
-                    element={
-                        <GenericPage title="Error" content="URL not found" />
-                    }
-                />
+                <Route path="*" element={<GenericPage title="Error" content="URL not found" />} />
             </Routes>
         </>
     );
