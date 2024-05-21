@@ -1,4 +1,4 @@
-FROM node:21.0.0 as build
+FROM node:21.0.0
 
 WORKDIR /app
 
@@ -10,13 +10,4 @@ COPY . .
 
 RUN npm run build
 
-
-FROM node:21.0.0
-
-WORKDIR /app
-
-COPY --from=build ./build ./build
-
-RUN npm install -g serve
-
-CMD ["serve", "-p", "8081", "build"]
+CMD ["node", "./dist/app.js"]
